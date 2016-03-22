@@ -1,0 +1,12 @@
+import java.awt.Frame;
+
+public class SimpleFrame extends Frame{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
+	
+}

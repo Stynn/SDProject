@@ -1,0 +1,16 @@
+import java.awt.Frame;
+import java.awt.Label;
+
+public class SimpleFrame extends Frame{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public SimpleFrame(){
+		Label l = new Label();
+		
+	}
+	
+}

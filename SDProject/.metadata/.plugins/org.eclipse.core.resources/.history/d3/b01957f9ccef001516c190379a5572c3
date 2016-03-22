@@ -1,0 +1,9 @@
+import java.awt.Frame;
+
+public class RobotTest {
+
+	public static void main(String[] args) {
+		
+	}
+
+}
