@@ -1,0 +1,36 @@
+package utils;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import laf.TextField;
+import vw.ConfigIpFrame;
+
+public class IpRetriveActionListener implements ActionListener{
+	
+	private String url;
+	private ConfigIpFrame parent;
+	private TextField urlTxt;
+	
+	public IpRetriveActionListener(String url, ConfigIpFrame parent, TextField urlTxt){
+		super();
+		this.setUrl(url);
+		this.parent = parent;
+		this.urlTxt = urlTxt;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		//Retrieve the url and close the frame
+		this.setUrl(this.urlTxt.getText());
+		this.parent.dispose();
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+}

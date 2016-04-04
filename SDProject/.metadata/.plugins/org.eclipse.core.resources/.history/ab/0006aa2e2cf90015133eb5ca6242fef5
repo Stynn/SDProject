@@ -1,0 +1,21 @@
+package vw;
+
+import javax.swing.JDialog;
+
+/**
+ * This modal dialog allow us to show message to the user
+ * @author stynn
+ *
+ */
+public class ShowDialog extends JDialog{
+
+	/**
+	 * Serial version UID
+	 */
+	private static final long serialVersionUID = -148048264824501518L;
+
+	public ShowDialog(){
+		
+	}
+
+}

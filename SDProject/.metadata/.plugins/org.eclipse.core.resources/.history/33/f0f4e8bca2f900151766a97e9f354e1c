@@ -1,0 +1,19 @@
+package ctrl;
+
+import java.util.ArrayList;
+
+public class ConnectivityServicesImpl implements ConnectivityServices {
+
+	private ArrayList<String> clients;
+	
+	public ConnectivityServicesImpl() {
+		this.clients = new ArrayList<String>();
+	}
+	
+	@Override
+	public void connectedClient(String name) {
+		this.clients.add(name);
+		System.out.println("SERVER : 	CLIENT "+name+" connected");
+	}
+
+}

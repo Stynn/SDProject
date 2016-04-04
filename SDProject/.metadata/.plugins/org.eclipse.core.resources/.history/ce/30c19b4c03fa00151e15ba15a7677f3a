@@ -1,0 +1,8 @@
+package tests;
+
+public interface TestServices {
+	public void test1();
+	
+	
+	
+}

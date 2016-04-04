@@ -1,0 +1,6 @@
+package ctrl;
+
+public class ClientRoutine extends Thread {
+	
+
+}

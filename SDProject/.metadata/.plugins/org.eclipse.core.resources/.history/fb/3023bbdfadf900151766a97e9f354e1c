@@ -1,0 +1,49 @@
+package ctrl;
+
+import lipermi.handler.CallHandler;
+import lipermi.net.Client;
+
+public class SupervisedClient {
+
+	private Client client = null;
+	private String name = "";
+	
+	public SupervisedClient(String ip, int port, String name){
+		
+		this.name = name;
+		
+		System.out.println("										CLIENT : Begin");
+		
+		System.out.println("										CLIENT :	Binding ...");
+		
+		CallHandler callHandler = new CallHandler();
+
+		try{
+			this.client = new Client(ip, port, callHandler);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		System.out.println("										CLIENT :	Binding ok");
+		
+		
+		
+		System.out.println("										CLIENT : Connected");
+	}
+	
+	public static void connected(SupervisedClient Sclient){
+		System.out.println("										CLIENT : 	Test connection ...");
+		
+		ConnectivityServices connecivityServicesRemote;
+		connecivityServicesRemote = (ConnectivityServices) Sclient.client.getGlobal(ConnectivityServices.class);
+		
+		connecivityServicesRemote.connectedClient(Sclient);
+		
+		
+		System.out.println("										CLIENT : 	Test connection ok");
+	}
+	
+	public String getName(){
+		return this.name;
+	}
+}

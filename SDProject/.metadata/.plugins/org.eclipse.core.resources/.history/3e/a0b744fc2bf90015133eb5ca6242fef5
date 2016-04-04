@@ -1,0 +1,13 @@
+package vw;
+
+import javax.swing.JDialog;
+
+public class ShowDialog extends JDialog{
+	
+	
+	
+	public ShowDialog(){
+		
+	}
+
+}

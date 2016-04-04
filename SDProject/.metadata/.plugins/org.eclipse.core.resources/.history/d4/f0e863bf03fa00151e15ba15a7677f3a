@@ -1,0 +1,25 @@
+package tests;
+
+import java.awt.image.BufferedImage;
+
+import vw.ViewerFrame;
+
+public class TestServicesImpl implements TestServices{
+
+	private ViewerFrame viewer;
+	
+	public public TestServicesImpl() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public void test1() {
+		System.out.println("coucou");
+	}
+
+	@Override
+	public void getImage(BufferedImage img) {
+		
+	}
+
+}

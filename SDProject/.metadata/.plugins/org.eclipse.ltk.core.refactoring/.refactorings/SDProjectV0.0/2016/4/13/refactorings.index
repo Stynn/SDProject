@@ -1,0 +1,13 @@
+1459628529757	Rename local variable 'ipLbl'
+1459628543923	Rename local variable 'ipTxt'
+1459628576324	Rename local variable 'connect'
+1459629912156	Rename type 'ActionListener'
+1459630397613	Rename type 'CActionListener'
+1459632634906	Encapsulate field 'url'
+1459633098800	Rename type 'ConfigIpFrame'
+1459640433319	Move compilation unit
+1459640466959	Rename local variable 'urlLbl'
+1459644549325	Rename local variable 'ipPattern'
+1459686723342	Delete element
+1459688096110	Delete elements
+1459724162314	Rename type 'DiscoHostsActionListener'

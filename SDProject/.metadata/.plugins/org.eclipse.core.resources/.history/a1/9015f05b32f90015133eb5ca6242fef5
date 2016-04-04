@@ -1,0 +1,21 @@
+package utils;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+/**
+ * Action listener of the frame of connection of the client
+ */
+public class ConnectActionListener implements ActionListener{
+
+	public ConnectActionListener(){
+		super();
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

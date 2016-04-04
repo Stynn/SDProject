@@ -1,0 +1,6 @@
+package ctrl;
+
+
+public interface ConnectivityServices {
+	public void connectedClient(String client);
+}

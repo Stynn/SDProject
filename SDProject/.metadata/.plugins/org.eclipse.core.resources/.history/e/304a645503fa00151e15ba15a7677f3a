@@ -1,0 +1,14 @@
+package tests;
+
+public class TestServicesImpl implements TestServices{
+
+	@Override
+	public void test1() {
+		System.out.println("coucou");
+	}
+
+	@Override
+	public void getImage() {
+	}
+
+}

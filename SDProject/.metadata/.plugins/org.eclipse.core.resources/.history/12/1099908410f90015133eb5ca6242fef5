@@ -1,0 +1,95 @@
+package vw;
+
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.GroupLayout;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import laf.Button;
+import laf.Label;
+import laf.TextField;
+
+public class ConfigIpFrame extends JFrame{
+	
+	/**
+	 * Serial version uid
+	 */
+	private static final long serialVersionUID = -3749868044133294393L;
+
+	public ConfigIpFrame(){
+		/**** Attributes ****/
+		//The main layout manager
+		GroupLayout layout;
+		
+		//Main panel of the frame
+		JPanel mainPanel = null;
+		
+		//The panel of the button
+		JPanel subPanel = null;
+		
+		//Labels of the frame 'IP Adress' 'Port'
+		Label ipLbl;
+		
+		//TextEdits of the frame
+		TextField ipTxt;
+		
+		//Button 'connect'
+		Button connect = new Button("Ok");
+		
+		/**** Actions ****/
+		
+		
+		/**** Construction ****/
+		//Labels
+		ipLbl = new Label("Please enter the URL of a website where you can read your IP address :");
+		ipLbl.setMinimumSize(new Dimension(200, 33));
+		
+		//EditTexts
+		ipTxt = new TextField();
+		ipTxt.setMaximumSize(new Dimension(800,33));
+		
+		//Button
+		connect.setMinimumSize(new Dimension(100,33));
+		
+
+		
+		//Panel and layout construction
+		mainPanel = new JPanel();
+		subPanel = new JPanel(new GridBagLayout());
+		subPanel.add(connect);
+		
+		layout = new GroupLayout(mainPanel);
+		
+		layout.setAutoCreateGaps(true);
+		layout.setAutoCreateContainerGaps(true);
+		
+		mainPanel.setLayout(layout);
+		
+		layout.setHorizontalGroup(
+		   layout.createSequentialGroup()
+		   .addGroup(layout.createParallelGroup()
+			   .addComponent(ipLbl)
+			   .addComponent(ipTxt)
+			   .addComponent(subPanel))
+			   
+		);
+		layout.setVerticalGroup(
+		   layout.createSequentialGroup()
+	           .addComponent(ipLbl)
+	           .addComponent(ipTxt)
+	           .addComponent(subPanel)
+		);
+		
+		
+		//Frame construction
+		this.add(mainPanel);
+		this.pack();
+		this.setTitle("Viewer : configure ip");
+		this.setResizable(false);
+		this.setVisible(true);
+	}
+}

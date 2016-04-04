@@ -1,0 +1,7 @@
+package ctrl;
+
+import lipermi.net.Client;
+
+public interface ConnectivityServices {
+	public void connectedClient(String client);
+}

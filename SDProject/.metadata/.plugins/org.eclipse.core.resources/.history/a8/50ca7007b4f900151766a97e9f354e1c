@@ -1,0 +1,10 @@
+package ctrl;
+
+public class ClientRoutine extends Thread {
+	public void run() {
+		Boolean isConnected = true;
+		while (isConnected){
+			
+		}
+	}   
+}

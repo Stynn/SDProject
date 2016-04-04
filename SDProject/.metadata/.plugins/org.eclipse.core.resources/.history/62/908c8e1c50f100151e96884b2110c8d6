@@ -1,0 +1,78 @@
+package vw;
+
+import java.awt.Dimension;
+
+import javax.swing.GroupLayout;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import laf.Button;
+import laf.ComboBox;
+
+public class ViewerFrame extends JFrame{
+
+	/**
+	 * Serial Version UID
+	 */
+	private static final long serialVersionUID = 1962228857416521894L;
+
+	public ViewerFrame(){
+		/**** Attributes ****/
+		//Panels
+		JPanel mainPanel = null;
+		JPanel subPanel1 = null;
+		JPanel subPanel2 = null;
+		
+		//Layout manager for the first sub panel
+		GroupLayout subLayout1;
+		
+		//Combobox of hosts
+		ComboBox<String> hostCbx = null;
+		
+		//Buttons
+		Button disconnectHostBtn;
+		Button disconnectHostsBtn;
+		
+		/**** Actions ****/
+		
+		/**** Construction ****/
+		//Main panel
+		mainPanel = new JPanel();
+		subPanel1 = new JPanel();
+		subPanel2 = new JPanel();
+		
+		//Combobox default
+		hostCbx = new ComboBox<String>();
+		hostCbx.addItem(new String("None"));
+		
+		//Buttons
+		disconnectHostBtn = new Button("Disconnect this host");
+		disconnectHostsBtn = new Button("Disconnect all hosts");
+		
+		//Organization of the group layout
+		
+		subLayout1 = new GroupLayout(subPanel1);
+		
+		subLayout1.setAutoCreateGaps(true);
+		subLayout1.setAutoCreateContainerGaps(true);
+		
+		subPanel1.setLayout(subLayout1);
+		
+		subLayout1.setHorizontalGroup(
+				subLayout1.createSequentialGroup()
+		   .addGroup(subLayout1.createParallelGroup()
+				   .addComponent(supervisorBtn)
+				   .addComponent(supervisBtn))
+		);
+		subLayout1.setVerticalGroup(
+				subLayout1.createSequentialGroup()
+	           .addComponent(supervisorBtn)
+	           .addComponent(supervisBtn)
+		);
+		 
+		this.add(mainPanel);
+		this.setTitle("Viewer : A.B.C.D:xxxx");
+		this.setSize(new Dimension(1200,900));
+		this.setVisible(true);
+	}
+}

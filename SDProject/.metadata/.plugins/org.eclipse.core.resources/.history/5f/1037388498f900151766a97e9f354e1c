@@ -1,0 +1,10 @@
+package ctrl;
+
+public class ConnectivityServicesImpl implements ConnectivityServices {
+
+	@Override
+	public void connectedClient() {
+		System.out.println("coucou");
+	}
+
+}

@@ -1,0 +1,48 @@
+package vw;
+
+import java.awt.Dimension;
+
+import javax.swing.GroupLayout;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import laf.Button;
+import laf.ComboBox;
+
+public class ViewerFrame extends JFrame{
+
+	/**
+	 * Serial Version UID
+	 */
+	private static final long serialVersionUID = 1962228857416521894L;
+
+	public ViewerFrame(){
+		/**** Attributes ****/
+		//Panels
+		JPanel mainPanel = null;
+		JPanel subPanel1 = null;
+		JPanel subPanel2 = null;
+		
+		//Layout manager for the first sub panel
+		GroupLayout subLayout1;
+		
+		//Combobox of hosts
+		ComboBox<String> hostCbx = null;
+		
+		//Buttons
+		Button disconnectHostBtn;
+		Button disconnectHostsBtn;
+		
+		/**** Actions ****/
+		
+		/**** Construction ****/
+		//Main panel
+		mainPanel = new JPanel();
+		subPanel1 = new JPanel();
+		subPanel2 = new JPanel();
+		
+		this.setTitle("Viewer : A.B.C.D:xxxx");
+		this.setSize(new Dimension(1200,900));
+		this.setVisible(true);
+	}
+}

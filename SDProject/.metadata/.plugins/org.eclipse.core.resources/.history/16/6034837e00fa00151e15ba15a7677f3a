@@ -1,0 +1,16 @@
+package tests;
+
+import javax.swing.JFrame;
+
+public class TestFrame extends JFrame{
+
+	/**
+	 * Serial Version UID
+	 */
+	private static final long serialVersionUID = -372595299695958905L;
+
+	public TestFrame(){
+		
+	}
+	
+}

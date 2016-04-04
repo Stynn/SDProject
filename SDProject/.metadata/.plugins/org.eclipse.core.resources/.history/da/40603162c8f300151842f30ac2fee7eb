@@ -1,0 +1,27 @@
+import java.rmi.*;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.*;
+
+/**
+ * Classe de démarrage du serveur
+ * @author stynn
+ *
+ */
+public class StartServer {
+	public static void main(String[] args) {
+		try {
+				//System.setSecurityManager(new RMISecurityManager());
+			 	java.rmi.registry.LocateRegistry.createRegistry(1123);	//Création du registre
+			 	//Registry g = LocateRegistry.getRegistry();
+			 	
+				ChatServerInt b = new ChatServer();	//Classe d'appel distant
+				System.out.println("Binding ...");
+				System.out.println("coucou");
+				Naming.rebind("rmi//77.130.4.239/myabc", b);	//Binding de la classe à l'adresse
+				System.out.println("[System] Chat Server is ready.");
+			}catch (Exception e) {
+					System.out.println("Chat Server failed: " + e);
+			}
+	}
+}

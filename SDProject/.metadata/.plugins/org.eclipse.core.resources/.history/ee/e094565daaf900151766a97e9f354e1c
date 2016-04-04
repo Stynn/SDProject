@@ -1,0 +1,17 @@
+package ctrl;
+
+public class ConnectivityServicesImpl implements ConnectivityServices {
+
+	private SupervisorServer server;
+	
+	public ConnectivityServicesImpl(SupervisorServer server) {
+		this.server = server;
+	}
+	
+	@Override
+	public void connectedClient(SupervisedClient client) {
+		this.server.addClient(name);
+		System.out.println("SERVER : 	CLIENT "+name+" connected");
+	}
+
+}
