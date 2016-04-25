@@ -1,0 +1,18 @@
+package mdl;
+
+public class MouseData {
+	
+	private Boolean press;
+	private Boolean release;
+	
+	private Boolean enter;
+	private Boolean exit;
+	
+	private int x;
+	private int y;
+	
+	public MouseData(){
+		
+	}
+	
+}

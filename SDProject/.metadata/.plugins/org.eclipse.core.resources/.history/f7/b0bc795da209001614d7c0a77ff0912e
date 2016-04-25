@@ -1,0 +1,27 @@
+package utils;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+
+import vw.Displayer;
+
+public class SuperMotionListener implements MouseMotionListener{
+
+	private Displayer parent;
+	
+	public SuperMotionListener(Displayer displayer){
+		this.displayer = displayer;
+	}
+	
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		System.out.println("##### Dragged : "+e.getX()+" / "+e.getY());
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		System.out.println("##### Move : "+e.getX()+" / "+e.getY());
+	}
+	
+}

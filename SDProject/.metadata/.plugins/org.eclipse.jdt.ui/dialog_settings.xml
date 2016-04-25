@@ -10,6 +10,13 @@
 	<section name="SelfEncapsulateFieldWizard">
 		<item value="false" key="GenerateJavadoc"/>
 	</section>
+	<section name="DialogBounds_SuperInterfaceSelectionDialog">
+		<item value="416" key="DIALOG_WIDTH"/>
+		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="630" key="DIALOG_HEIGHT"/>
+		<item value="119" key="DIALOG_X_ORIGIN"/>
+		<item value="-48" key="DIALOG_Y_ORIGIN"/>
+	</section>
 	<section name="org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart">
 		<item value="1" key="layout"/>
 		<item value="true" key="group_libraries"/>
@@ -23,6 +30,7 @@
 	</section>
 	<section name="OptionalMessageDialog.hide.">
 		<item value="true" key="org.eclipse.jdt.ui.typecomment.deprecated"/>
+		<item value="true" key="RunnableJar.export.ipwarning"/>
 	</section>
 	<section name="org.eclipse.jdt.internal.ui.typehierarchy.QuickHierarchy">
 		<item value="true" key="org.eclipse.jdt.internal.ui.typehierarchy.HierarchyInformationControlDIALOG_USE_PERSISTED_SIZE"/>
@@ -41,17 +49,28 @@
 			<item value="194" key="DIALOG_Y_ORIGIN"/>
 		</section>
 	</section>
+	<section name="DialogBounds_GetterSetterTreeSelectionDialog">
+		<item value="647" key="DIALOG_WIDTH"/>
+		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+		<item value="794" key="DIALOG_HEIGHT"/>
+		<item value="612" key="DIALOG_X_ORIGIN"/>
+		<item value="13" key="DIALOG_Y_ORIGIN"/>
+	</section>
 	<section name="RefactoringWizard.preview">
 		<item value="600" key="width"/>
 		<item value="400" key="height"/>
 	</section>
 	<section name="FatJarPackageWizard">
 		<item value="/home/stynn/Dropbox/Travail/Licence/S6/Système distribué/Projet/SDProject" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
-		<item value="ClientRun - LipeRMI" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
-		<item value="/home/stynn/Programme/LipeRMI test/lipeClient.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
+		<item value="main - SDProjectV0.0" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
+		<item value="/home/stynn/Dropbox/projet.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
 		<item value="false" key="FatJarPackageWizardPage.ANTSCRIPT_SAVE"/>
 		<item value="1" key="FatJarPackageWizardPage.LIBRARY_HANDLING"/>
 		<list key="FatJarPackageWizardPage.DESTINATION_NAMES_ID">
+			<item value="/home/stynn/Dropbox/projet.jar"/>
+			<item value="/home/stynn/Programme/projet.jar"/>
+			<item value="/home/stynn/Programme/server.jar"/>
+			<item value="/home/stynn/Programme/client.jar"/>
 			<item value="/home/stynn/Programme/LipeRMI test/lipeClient.jar"/>
 			<item value="/home/stynn/Programme/LipeRMI test/lipeServer.jar"/>
 			<item value="/home/stynn/Programme/Corba test/corbaServer.jar"/>
@@ -70,6 +89,12 @@
 		<item value="false" key="expanded2"/>
 		<item value="false" key="expanded1"/>
 		<item value="true" key="expanded0"/>
+	</section>
+	<section name="SourceActionDialog.methods">
+		<item value="false" key="SynchronizedModifier"/>
+		<item value="false" key="Comments"/>
+		<item value="1" key="VisibilityModifier"/>
+		<item value="false" key="FinalModifier"/>
 	</section>
 	<section name="BreadcrumbItemDropDown">
 	</section>
@@ -107,6 +132,10 @@
 		<list key="JarPackageWizardPage.DESTINATION_NAMES_ID">
 			<item value="/media/stynn/Clé 1/SD.jar"/>
 		</list>
+	</section>
+	<section name="AddGetterSetterDialog">
+		<item value="false" key="SortOrdering"/>
+		<item value="false" key="RemoveFinal"/>
 	</section>
 	<section name="JavaElementSearchActions">
 	</section>

@@ -1,8 +1,0 @@
-package tests;
-
-public interface TestServices {
-	public void test1();
-	
-	public void getImage();
-	
-}

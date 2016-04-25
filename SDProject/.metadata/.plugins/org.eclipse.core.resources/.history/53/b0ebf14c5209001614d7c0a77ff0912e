@@ -1,0 +1,15 @@
+package utils;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class PlayPauseActionListener implements ActionListener{
+
+	public ViewerFrame parent;
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+	}
+
+}

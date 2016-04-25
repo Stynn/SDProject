@@ -1,0 +1,61 @@
+package test;
+
+import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import ctrl.SupervisorServer;
+import utils.ImageManipulator;
+
+public class ImageReceiver extends Thread{
+
+	private Socket sock;
+	private ServerSocket ssocket;
+	private int port;
+	private SupervisorServer server;
+	
+	public ImageReceiver(ServerSocket ssocket, int port, SupervisorServer server){
+		this.ssocket = ssocket;
+		this.port = port;
+		this.server = server;
+	}
+	
+	@SuppressWarnings("resource")
+	public void run(){
+		while(true){
+			
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			
+			try {
+				sock = ssocket.accept();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			try {
+				Transmitter.transfert(sock.getInputStream(), new FileOutputStream("tmpR.jpeg"), true);
+				sock.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			//Récupération de l'image sur le disque puis affichage de celle-ci
+			BufferedImage image = ImageManipulator.retrieveImageFromDisk();
+			this.server.getViewer().displayer.updateDisplay(image, this.server.getViewer().displayer.getWidth(), this.viewer.displayer.getHeight());
+			
+		}
+	}
+}

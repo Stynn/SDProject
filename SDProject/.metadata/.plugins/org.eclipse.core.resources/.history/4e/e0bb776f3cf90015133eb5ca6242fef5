@@ -1,6 +1,0 @@
-package ctrl;
-public class ExampleServiceImpl{
-    public void clientConnected() {
-        System.out.println("SERVER : -> CLIENT connected");
-    }
-}

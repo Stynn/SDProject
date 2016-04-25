@@ -1,5 +1,0 @@
-import java.awt.Frame;
-
-public class SimpleFrame extends Frame{
-	
-}

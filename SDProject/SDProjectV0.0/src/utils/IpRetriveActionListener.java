@@ -39,10 +39,18 @@ public class IpRetriveActionListener implements ActionListener{
 		this.parent.dispose();
 	}
 
+	/**
+	 * Getter of the url
+	 * @return
+	 */
 	public String getUrl() {
 		return url;
 	}
 
+	/**
+	 * Setter of the url
+	 * @param url
+	 */
 	public void setUrl(String url) {
 		this.url = url;
 	}

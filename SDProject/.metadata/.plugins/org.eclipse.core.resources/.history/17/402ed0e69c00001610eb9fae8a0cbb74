@@ -1,0 +1,16 @@
+package ctrl;
+
+public class RoutineServicesImpl implements RoutineServices{
+
+	private SupervisorServer server;
+	
+	public public RoutineServicesImpl(SupervisorServer server) {
+		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public void msgRoutine() {
+		System.out.println("Msg routine");
+	}
+
+}

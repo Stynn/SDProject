@@ -10,8 +10,12 @@ import javax.swing.JFrame;
  */
 public class ConnectActionListener implements ActionListener{
 
-	JFrame parent;
+	public JFrame parent;	//The parent
 	
+	/**
+	 * Constructor of the action listener
+	 * @param parent The parent
+	 */
 	public ConnectActionListener(JFrame parent){
 		super();
 		this.parent = parent;
@@ -19,7 +23,7 @@ public class ConnectActionListener implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		//Override in the class which use this class
 	}
 
 }

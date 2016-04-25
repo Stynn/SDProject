@@ -1,0 +1,16 @@
+package ctrl;
+
+public class RoutineServicesImpl implements RoutineServices{
+			
+	private SupervisorServer server;
+	
+	public RoutineServicesImpl(SupervisorServer server) {
+		this.server = server;
+	}
+	
+	@Override
+	public void msgRoutine() {
+		System.out.println("Msg routine");
+	}
+
+}

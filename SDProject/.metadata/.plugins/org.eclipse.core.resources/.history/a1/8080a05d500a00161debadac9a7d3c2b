@@ -1,0 +1,42 @@
+package ctrl;
+
+/**
+ * 
+ * Interface of all routine services (like sending frame, parameters ...)
+ *
+ */
+public interface RoutineServices {
+	
+	//Use to know if we can access to the server
+	public void msgRoutine();
+	
+	/**
+	 * Check if the client is active
+	 * @param name The name of the client
+	 * @return True if the client is active, False if it isn't
+	 */
+	public Boolean amIActive(String name);
+	
+	/**
+	 * Check if the button play pause of the button is on play
+	 * @return True if the server is ready
+	 */
+	public Boolean isServerOkForReception();
+	
+	public Boolean getPressed();
+	public Boolean getReleased();
+	
+	public Boolean getEntered();
+	public Boolean getExited();
+	
+	public int getX();
+	public int getY();
+	
+	public int getWidth();
+	public int getHeight();
+	
+	public Object getMouseData(){
+		
+	}
+	
+}

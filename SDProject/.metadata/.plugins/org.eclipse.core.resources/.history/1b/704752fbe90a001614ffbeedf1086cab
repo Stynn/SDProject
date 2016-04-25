@@ -1,0 +1,33 @@
+package mdl;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class DataFromKeyboard implements Serializable{
+
+	ArrayList<Integer> listOfCharacter;
+	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 3436541532631876899L;
+	
+	public DataFromKeyboard(){
+		listOfCharacter = new ArrayList<Integer>();
+	}
+	
+	public void addCode(int code){
+		this.listOfCharacter.add(code);
+		System.out.println(listOfCharacter.toString());
+	}
+	
+	public int getFirstCode(){
+		int res = 0;
+		
+		res = this.listOfCharacter.get(0);
+		this.listOfCharacter.remove(0);
+		
+		return res;
+	}
+
+}

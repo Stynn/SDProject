@@ -1,0 +1,70 @@
+package ctrl;
+
+
+/**
+ * 
+ * Implementation of the interface RoutineServices
+ *
+ */
+public class RoutineServicesImpl implements RoutineServices {
+	
+	private SupervisorServer server; 	//The server
+	
+	/**
+	 * Constructor of this class
+	 * @param supervisorServer The server whick implements theses services
+	 */
+	public RoutineServicesImpl(SupervisorServer supervisorServer) {
+		this.server = supervisorServer;
+	}
+
+	/**
+	 * The function use to know if this services work
+	 */
+	@Override
+	public void msgRoutine() {
+		System.out.println("Routine services");
+	}
+
+	/**
+	 * Function use to know if the client if it is active or not
+	 */
+	@Override
+	public Boolean amIActive(String name) {
+		Boolean res = false;
+		if (name.equalsIgnoreCase(this.server.getData().getActiveClient()))
+			res = true;
+		return res;
+	}
+
+	/**
+	 * @Return True if the server is of for reception
+	 */
+	@Override
+	public Boolean isServerOkForReception() {
+		Boolean res = this.server.getData().getPlayStateServer();
+		return res;
+	}
+
+	@Override
+	public Object[] getDataMouseKey() {
+		
+		Object[] res = new Object[8];
+		res[0] = this.server.getDataMouse().getPress();
+		res[1] = this.server.getDataMouse().getX();
+		res[2] = this.server.getDataMouse().getY();
+		res[3] = this.server.getDataMouse().getWidth();
+		res[4] = this.server.getDataMouse().getHeight();
+		res[5] = this.server.getDataMouse().getLeftClick();
+		res[6] = this.server.getDataMouse().getRightClick();
+		res[7] = this.server.getDataKey().getFirstCode();
+		
+		return res;
+	}
+
+	@Override
+	public int getFirstCodeKeyboard() {
+		return this.server.getDataKey().getFirstCode();
+	}
+
+}

@@ -21,19 +21,13 @@ import vw.ConfigIpDialog;
  *
  */
 public class AddressIPGetter {
-
-	/**
-	 * Constructor of the class
-	 */
-	public AddressIPGetter(){
-		
-	}
 	
 	/**
 	 * Method static use to get the address ip
 	 * @return
 	 */
 	public static String getIp(){
+		
 		String ip = "ERROR";
 		String motif = "Please enter the URL of a website where you can read your IP address :";
 		
@@ -60,7 +54,6 @@ public class AddressIPGetter {
 						f = (Boolean)currentRes[0];
 						found = (Boolean) currentRes[0];
 						ip = (String)currentRes[1];
-						System.out.println("#"+ip);
 					}
 				}
 			}catch(MalformedURLException e){
@@ -209,5 +202,4 @@ public class AddressIPGetter {
 		
 		return res;
 	}
-	
 }

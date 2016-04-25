@@ -1,8 +1,12 @@
 package vw;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
@@ -17,7 +21,9 @@ import laf.Button;
 import laf.ComboBox;
 import laf.ShowDialog;
 import utils.CFrameAdapter;
+import utils.ChangeHostActionListener;
 import utils.DiscoHostActionListener;
+import utils.PlayPauseActionListener;
 
 /**
  * The frame use by the supervisor
@@ -27,6 +33,7 @@ public class ViewerFrame extends JFrame{
 	public Displayer displayer;	//The displayer of image from the supervised
 	private ComboBox<String> hostCbx = null;
 	private SupervisorServer server = null;
+	private Button playPause = null;
 	
 	/**
 	 * Serial Version UID
@@ -55,6 +62,7 @@ public class ViewerFrame extends JFrame{
 		Button disconnectHostBtn;
 		Button disconnectHostsBtn;
 		
+		
 		/**** Actions ****/
 		
 		this.addComponentListener(new CFrameAdapter(this) {
@@ -71,7 +79,7 @@ public class ViewerFrame extends JFrame{
 		mainPanel.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
 		subPanel1 = new JPanel();
 		try {
-			displayer = new Displayer();
+			displayer = new Displayer(this.server);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -84,6 +92,8 @@ public class ViewerFrame extends JFrame{
 		//Buttons
 		disconnectHostBtn = new Button("Disconnect this host");
 		disconnectHostsBtn = new Button("Disconnect all hosts");
+		playPause = new Button(">");
+		playPause.setMinimumSize(new Dimension(50, 10));
 		
 		//Organization of the group layout
 		
@@ -97,15 +107,17 @@ public class ViewerFrame extends JFrame{
 		subLayout1.setHorizontalGroup(
 			subLayout1.createSequentialGroup()
 				.addComponent(hostCbx)
+				.addComponent(playPause)
 				.addComponent(disconnectHostBtn)
-				.addComponent(disconnectHostsBtn)
+				.addComponent(disconnectHostsBtn)	
 		);
 		subLayout1.setVerticalGroup(
 			subLayout1.createSequentialGroup()
 				.addGroup(subLayout1.createParallelGroup()
-						   .addComponent(hostCbx)
-						   .addComponent(disconnectHostBtn)
-						   .addComponent(disconnectHostsBtn))
+							.addComponent(hostCbx)
+							.addComponent(playPause)
+							.addComponent(disconnectHostBtn)
+							.addComponent(disconnectHostsBtn))
 		);
 		
 		//The main panel
@@ -140,7 +152,36 @@ public class ViewerFrame extends JFrame{
 			}
 		});
 		
+		//When we change the combobox
+		hostCbx.addActionListener(new ChangeHostActionListener(this){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				this.parent.changeHost();
+			}
+		});
 		
+		playPause.addActionListener(new PlayPauseActionListener(this){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (this.parent.playPause.getText().equalsIgnoreCase("||")){
+					this.parent.playPause.setText(">");
+					this.parent.server.getData().setPause();
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					this.parent.displayer.setBackground(Color.black);
+					this.parent.displayer.updateDisplay(null, 1, 1);
+					
+				}else if (this.parent.playPause.getText().equalsIgnoreCase(">")){
+					this.parent.playPause.setText("||");
+					this.parent.server.getData().setPlay();
+					
+				}
+			}
+		});
 	}
 	
 	/**
@@ -156,7 +197,7 @@ public class ViewerFrame extends JFrame{
 	 * Method use to disconnect all hosts
 	 */
 	public void discoHosts(){
-		this.server.suppressAllClient();
+		this.server.getData().removeAllClients();
 		this.hostCbx.removeAllItems();
 		this.hostCbx.addItem("None");
 	}
@@ -166,9 +207,16 @@ public class ViewerFrame extends JFrame{
 	 */
 	public void discoHost(){
 		int index = this.hostCbx.getSelectedIndex();
-		this.server.suppressClient((String)this.hostCbx.getSelectedItem());
+		this.server.getData().suppressClient((String)this.hostCbx.getSelectedItem());
 		this.hostCbx.removeItemAt(index);
 		if (this.hostCbx.getItemCount() == 0)
 			this.hostCbx.addItem("None");
+	}
+	
+	/**
+	 * Method call when we change the user into the combobox
+	 */
+	public void changeHost(){
+		this.server.getData().setActiveClient((String)this.hostCbx.getSelectedItem());
 	}
 }

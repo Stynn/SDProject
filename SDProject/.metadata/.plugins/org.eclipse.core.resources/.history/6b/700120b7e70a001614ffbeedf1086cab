@@ -1,0 +1,7 @@
+package mdl;
+
+import java.io.Serializable;
+
+public class DataFromKeyboard implements Serializable{
+
+}

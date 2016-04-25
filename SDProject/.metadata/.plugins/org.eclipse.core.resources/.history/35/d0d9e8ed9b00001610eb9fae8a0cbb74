@@ -1,0 +1,32 @@
+package ctrl;
+
+import lipermi.net.Client;
+
+public class ClientRoutine extends Thread{
+	
+	private String clientName ="";
+	private Client client = null;
+	
+	/**
+	 * Constructor of the routine
+	 * @param client
+	 * @param name
+	 */
+	public ClientRoutine(Client client, String name){
+		this.client = client;
+		this.clientName = name;
+	}
+	
+	/**
+	 * Routine
+	 */
+	public void run(){
+		Boolean isActive = false;
+		do{
+			//Every 50 ms check if we are active and send a image
+			
+		}while(isActive);
+	}
+	
+	
+}

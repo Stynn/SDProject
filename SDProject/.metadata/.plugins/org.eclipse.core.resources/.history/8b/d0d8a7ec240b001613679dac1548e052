@@ -1,0 +1,66 @@
+package ctrl;
+
+import java.awt.AWTException;
+import java.awt.Dimension;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
+
+import lipermi.net.Client;
+
+public class ClientRoutineController extends Thread{
+	
+	private Client client;
+	private ClientSuperRoutine parent;
+	
+	public ClientRoutineController(Client client, String clientName, ClientSuperRoutine parent){
+		this.client = client;
+		this.parent = parent;
+	}
+	
+	public void run(){
+		
+		RoutineServices routineServicesRemote;
+		routineServicesRemote = (RoutineServices) this.client.getGlobal(RoutineServices.class);
+		
+		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		int height = (int)dimension.getHeight();
+		int width  = (int)dimension.getWidth();
+		
+		Robot bot = null;
+		try {
+			bot = new Robot();
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}
+		
+		while(parent.getSending()){
+			Object[] o =  routineServicesRemote.getDataMouseKey();
+			int pressed = (int)o[1];
+			int released = (int)o[2];
+			int x = (int) o[3];
+			int y = (int) o[4];
+			int serverWidth = (int) o[5];
+			int serverHeight = (int) o[6];
+			int keyPressed = (int)o[7];
+			
+			x = x * width / serverWidth;
+			y = y * height / serverHeight;
+			
+			bot.mouseMove(x, y);
+			
+			if (pressed != -1){
+					bot.mousePress(pressed);
+				
+			}
+			
+			if (released != -1){
+					bot.mouseRelease(released);
+			}
+			
+			if (keyPressed != -1){
+				bot.keyPress(keyPressed);
+			}
+			
+		}
+	}
+}

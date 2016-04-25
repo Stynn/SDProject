@@ -1,0 +1,17 @@
+package ctrl;
+
+
+/**
+ * Interface of all remote connectivity services
+ *
+ */
+public interface ConnectivityServices {
+	
+	/**
+	 * Connect a client to the server
+	 * @param client The name of the client to connect
+	 */
+	public void connectedClient(String client);
+	
+	public Boolean amIConnected(String name);
+}

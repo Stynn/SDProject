@@ -1,0 +1,119 @@
+package mdl;
+
+import java.io.Serializable;
+
+/**
+ * Data from the mouse
+ */
+public class DataFromMouse implements Serializable{
+	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = -964341489497748188L;
+	private Boolean press;
+	private Boolean release;
+	private Boolean leftClick;
+	private Boolean rightClick;
+	
+	private Boolean enter;
+	private Boolean exit;
+	
+	private int x;
+	private int y;
+	
+	private int width;
+	private int height;
+	
+	public DataFromMouse(){
+		this.press = false;
+		this.release = true;
+		this.clickId = -1;
+		
+		this.enter = false;
+		this.exit = true;
+		
+		this.x = 0;
+		this.y = 0;
+		
+		this.width = 0;
+		this.height = 0;
+	}
+	
+	//GETTER and SETTER
+
+	public Boolean getPress() {
+		return press;
+	}
+
+	public void setPress(Boolean press) {
+		this.press = press;
+	}
+
+	public Boolean getRelease() {
+		return release;
+	}
+
+	public void setRelease(Boolean release) {
+		this.release = release;
+	}
+
+	public Boolean getEnter() {
+		return enter;
+	}
+
+	public void setEnter(Boolean enter) {
+		this.enter = enter;
+	}
+
+	public Boolean getExit() {
+		return exit;
+	}
+
+	public void setExit(Boolean exit) {
+		this.exit = exit;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public int getClickId() {
+		return clickId;
+	}
+
+	public void setClickId(int clickId) {
+		this.clickId = clickId;
+	}
+	
+	
+	
+}

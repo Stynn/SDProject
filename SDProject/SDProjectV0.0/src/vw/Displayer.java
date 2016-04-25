@@ -4,10 +4,20 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.swing.JPanel;
+
+import ctrl.SupervisorServer;
+import utils.SuperKeyListener;
+import utils.SuperMotionListener;
+import utils.SuperMouseListener;
+import utils.SuperWheelListener;
 
 /**
  * This class display the screen of the supervised into the frame of the supervisor
@@ -20,12 +30,20 @@ public class Displayer extends JPanel{
 	private static final long serialVersionUID = -7930030813133693413L;
 
 	private BufferedImage image;	//The current image or the first image
+	public SupervisorServer server;//The server attached to this displayer
 
 	/**
 	 * Constructor of the displayer
 	 * @throws IOException Thow when the first image read does'nt exist
 	 */
-    public Displayer() throws IOException {
+    public Displayer(SupervisorServer server) throws IOException {
+    	this.server = server;
+    	
+    	this.addMouseListener(new SuperMouseListener(this));
+    	this.addMouseMotionListener(new SuperMotionListener(this));
+    	this.addKeyListener(new SuperKeyListener(this));
+    	this.addMouseWheelListener(new SuperWheelListener(this));
+    	
     	this.image = new BufferedImage ( 800, 600, BufferedImage.TYPE_INT_ARGB );
     	Graphics g = this.image.getGraphics();
     	g.setColor(Color.black);
@@ -70,5 +88,6 @@ public class Displayer extends JPanel{
     		this.image = image;
     	}
     	this.image = this.resize(this.image, width, heigth);
+    	this.repaint();
     }
 }

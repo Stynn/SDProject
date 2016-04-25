@@ -1,0 +1,91 @@
+package vw;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.swing.JPanel;
+
+import ctrl.SupervisorServer;
+import utils.SuperKeyListener;
+import utils.SuperMotionListener;
+import utils.SuperMouseListener;
+
+/**
+ * This class display the screen of the supervised into the frame of the supervisor
+ */
+public class Displayer extends JPanel{
+
+	/**
+	 * Serial version UID
+	 */
+	private static final long serialVersionUID = -7930030813133693413L;
+
+	private BufferedImage image;	//The current image or the first image
+	public SupervisorServer server;//The server attached to this displayer
+
+	/**
+	 * Constructor of the displayer
+	 * @throws IOException Thow when the first image read does'nt exist
+	 */
+    public Displayer(SupervisorServer server) throws IOException {
+    	this.server = server;
+    	
+    	this.addMouseListener(new SuperMouseListener(this));
+    	this.addMouseMotionListener(new SuperMotionListener(this));
+    	this.addKeyListener(new SuperKeyListener(this));
+    	
+    	this.image = new BufferedImage ( 800, 600, BufferedImage.TYPE_INT_ARGB );
+    	Graphics g = this.image.getGraphics();
+    	g.setColor(Color.black);
+    	g.fillRect(0, 0, 800, 600);
+    }
+
+    /**
+     * Method use to paint the component, we use our proper image
+     */
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, null);        
+    }
+
+    /**
+     * Method use to resize a image
+     * @param img The image to resize
+     * @param newW Value of the new width
+     * @param newH Value of the new Height
+     * @return dimg The image resized
+     */
+    public BufferedImage resize(BufferedImage img, int newW, int newH) { 
+        Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
+        BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g2d = dimg.createGraphics();
+        g2d.drawImage(tmp, 0, 0, null);
+        g2d.dispose();
+
+        return dimg;
+    }
+    
+    /**
+     * Method use to update the displayer, called when the parent frame change his size for example
+     * @param image The image to display now
+     * @param width	The width of the image displayed
+     * @param heigth The height of the image displayed
+     */
+    public void updateDisplay(BufferedImage image, int width, int heigth){
+    	if (image != null){
+    		this.image = image;
+    	}
+    	this.image = this.resize(this.image, width, heigth);
+    	this.repaint();
+    }
+}

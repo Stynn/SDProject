@@ -1,0 +1,10 @@
+package ctrl;
+
+public class RoutineServicesImpl implements RoutineServices{
+
+	@Override
+	public void msgRoutine() {
+		System.out.println("Msg routine");
+	}
+
+}

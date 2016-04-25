@@ -1,0 +1,38 @@
+package ctrl;
+
+
+/**
+ * Implementation of connectivity services
+ *
+ */
+public class ConnectivityServicesImpl implements ConnectivityServices {
+
+	//The server which implements these services
+	private SupervisorServer server;
+	
+	/**
+	 * Constructor of the implementation
+	 * @param server The server which implements these services
+	 */
+	public ConnectivityServicesImpl(SupervisorServer server) {
+		this.server = server;
+	}
+
+	/**
+	 * Method use by the client to know if he is always connected
+	 */
+	@Override
+	public Boolean amIConnected(String name) { 
+		Boolean res = false;
+		
+		for(String currentClient : server.getData().getClients()){
+			if (currentClient.equalsIgnoreCase(name))
+				res = true;
+		}
+		
+		return res;
+	}
+
+	
+	
+}

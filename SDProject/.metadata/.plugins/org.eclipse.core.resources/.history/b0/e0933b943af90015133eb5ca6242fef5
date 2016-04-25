@@ -1,4 +1,0 @@
-package ctrl;
-public interface ExampleService {
-    void someMethod();
-}

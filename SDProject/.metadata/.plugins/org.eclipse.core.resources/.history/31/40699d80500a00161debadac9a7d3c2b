@@ -1,0 +1,97 @@
+package ctrl;
+
+
+/**
+ * 
+ * Implementation of the interface RoutineServices
+ *
+ */
+public class RoutineServicesImpl implements RoutineServices {
+	
+	private SupervisorServer server; 	//The server
+	
+	/**
+	 * Constructor of this class
+	 * @param supervisorServer The server whick implements theses services
+	 */
+	public RoutineServicesImpl(SupervisorServer supervisorServer) {
+		this.server = supervisorServer;
+	}
+
+	/**
+	 * The function use to know if this services work
+	 */
+	@Override
+	public void msgRoutine() {
+		System.out.println("Routine services");
+	}
+
+	/**
+	 * Function use to know if the client if it is active or not
+	 */
+	@Override
+	public Boolean amIActive(String name) {
+		Boolean res = false;
+		if (name.equalsIgnoreCase(this.server.getData().getActiveClient()))
+			res = true;
+		return res;
+	}
+
+	/**
+	 * @Return True if the server is of for reception
+	 */
+	@Override
+	public Boolean isServerOkForReception() {
+		Boolean res = this.server.getData().getPlayStateServer();
+		return res;
+	}
+
+	@Override
+	public Boolean getPressed() {
+		return this.server.getDataMouse().getPress();
+	}
+
+	@Override
+	public Boolean getReleased() {
+		return this.server.getDataMouse().getRelease();
+	}
+
+	@Override
+	public Boolean getEntered() {
+		return this.server.getDataMouse().getEnter();
+	}
+
+	@Override
+	public Boolean getExited() {
+		return this.server.getDataMouse().getExit();
+	}
+
+	@Override
+	public int getX() {
+		return this.server.getDataMouse().getX();
+	}
+
+	@Override
+	public int getY() {
+		return this.server.getDataMouse().getY();
+	}
+
+	@Override
+	public int getWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getHeight() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Object getDataMouse() {
+		Object res = new Object[8]();
+		return null;
+	}
+	
+}

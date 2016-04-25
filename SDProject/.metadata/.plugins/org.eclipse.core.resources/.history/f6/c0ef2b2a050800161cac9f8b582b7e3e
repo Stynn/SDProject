@@ -1,0 +1,147 @@
+package ctrl;
+
+
+import java.io.IOException;
+import java.net.ServerSocket;
+
+import lipermi.exception.LipeRMIException;
+import lipermi.handler.CallHandler;
+import lipermi.net.Server;
+import mdl.DataFromServer;
+import test.ImageReceiver;
+import vw.ViewerFrame;
+
+/**
+ * This is the server of the application
+ */
+public class SupervisorServer {
+
+	private Server server;						//Server into the server
+	private int portServer;						//Port of the server
+	private int portSocket;						//Port of the socket
+	private ViewerFrame viewer;					//Viewer associate to the server
+	private DataFromServer data;				//Data structure know by the client
+	public CallHandler cH;						//The callhandler of the server
+	
+	/**
+	 * Constructor of the server
+	 */
+	public SupervisorServer(){
+		data = new DataFromServer();
+		
+		System.out.println("SERVER : Begin");
+		
+		
+		System.out.println("SERVER :	Binding ...");
+		this.server = new Server();
+		
+		System.out.println("SERVER :		Listing services ...");
+		ConnectivityServicesImpl connectivityServices = new ConnectivityServicesImpl(this);
+		
+		
+		cH = new CallHandler();
+		try{
+			cH.registerGlobal(ConnectivityServices.class, connectivityServices);
+		}catch(LipeRMIException e){
+			e.printStackTrace();
+		}
+		System.out.println("SERVER :		Services ok");
+		
+		System.out.println("SERVER :		Searching port for server ...");
+		this.portServer = 5000;
+		Boolean portOk = false;
+		
+		while (!portOk){
+			try{
+				server.bind(this.portServer, cH);
+				portOk = true;
+			}catch(IOException e){
+				this.portServer++;
+			}
+		}
+		
+		System.out.println("SERVER :		Port server : "+this.portServer);
+		System.out.println("SERVER :	Binding ok");
+		
+		
+		System.out.println("SERVER : 	Initializing socket ...");
+		
+		this.portSocket = 5001;
+		portOk = false;
+		ServerSocket ssocket = null;
+		
+		
+		while (!portOk){
+			try {
+				ssocket = new ServerSocket(this.portSocket);
+				portOk = true;
+			} catch (IOException e){ 
+				this.portSocket++;
+			}
+		}
+		
+		ImageReceiver imgRcv = new ImageReceiver(ssocket, this.portSocket, this);
+		imgRcv.start();
+		
+		System.out.println("SERVER : 	Socket port : "+this.portSocket);
+		
+		
+		System.out.println("SERVER : Listening on port : "+this.portServer+" and "+this.portSocket);
+	}
+	
+	/**
+	 * Method use to add the service in liaison with the viewer
+	 */
+	public void addVieverServices(){
+		RoutineServicesImpl routineServices = new RoutineServicesImpl(this);
+		try{
+			cH.registerGlobal(RoutineServices.class, routineServices);
+		}catch(LipeRMIException e){
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Method use to know the port which the server running on
+	 * @return The port of the server
+	 */
+	public int getPort(){
+		return this.portServer;
+	}
+	
+	/**
+	 * Référence to the frame of the server
+	 * @param wf
+	 */
+	public void setViewer(ViewerFrame wf){
+		this.viewer = wf;
+	}
+	
+	/**
+	 * Function which return the viewer of the application
+	 * @return
+	 */
+	public ViewerFrame getViewer() {
+		return viewer;
+	}
+
+	/**
+	 * Method use to add a client into the server and to refresh the frame
+	 * @param name
+	 */
+	public void addClient(String name){
+		//If the number of client is 0, it is the active client
+		if (this.data.getClients().size() == 0){
+			this.data.setActiveClient(name);
+		}
+		this.data.addClient(name);
+		this.viewer.addClient(name);
+	}
+	
+	/**
+	 * @return Data of the server
+	 */
+	public DataFromServer getData(){
+		return this.data;
+	}
+}

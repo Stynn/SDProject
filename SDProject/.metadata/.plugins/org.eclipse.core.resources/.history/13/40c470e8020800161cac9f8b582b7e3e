@@ -1,0 +1,106 @@
+package ctrl;
+
+import java.awt.AWTException;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+import lipermi.net.Client;
+import test.Transmitter;
+import utils.ImageManipulator;
+
+public class ClientRoutineLevel1 extends Thread{
+	
+	private String clientName = "";	//This is the name of the client
+	private Client client = null;
+	
+	/**
+	 * Constructor of the routine
+	 * @param client
+	 * @param name
+	 */
+	public ClientRoutineLevel1(Client client, String name){
+		this.client = client;
+		this.clientName = name;
+	}
+	
+	/**
+	 * Routine
+	 */
+	public void run(){
+		Boolean isActive = true;
+		@SuppressWarnings("unused")
+		RoutineServices routineServices = (RoutineServices) this.client.getGlobal(RoutineServices.class);
+
+		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		int height = (int)dimension.getHeight();
+		int width  = (int)dimension.getWidth();
+		
+		Rectangle screenRect = new Rectangle(0,0,width,height);
+		Robot robot = null;
+		try {
+			robot = new Robot();
+		} catch (AWTException e1) {
+			e1.printStackTrace();
+		}
+		
+		
+		//Ouverture d'une socket vers le server
+		Socket sock = null;
+		while(isActive){
+			
+			RoutineServices routineServicesRemote;
+			routineServicesRemote = (RoutineServices) this.client.getGlobal(RoutineServices.class);
+			
+			
+			if (routineServicesRemote.amIActive(clientName)){
+				//Every 50 ms check if we are active and send a image
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				try {
+					sock = new Socket("77.150.66.35", 5001);
+				} catch (UnknownHostException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				
+				isActive = true;
+				System.out.println("										CLIENT<"+clientName+"> Sending frame ...");
+				BufferedImage img = robot.createScreenCapture(screenRect);
+				
+				//Création de l'image physique sur le disque
+				ImageManipulator.createImageOnDisk(img);
+				
+				//Sending de l'image par la socket
+				try {
+					Transmitter.transfert(new FileInputStream("tmpE.jpeg"), sock.getOutputStream(), true);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+				}
+				
+				//Attente de l'acquittement
+				
+				//Envoie des paramètres de la souris et autres
+				
+			}
+		}
+	}
+}

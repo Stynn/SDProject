@@ -1,0 +1,47 @@
+package utils;
+
+import java.awt.event.MouseEvent;
+
+import vw.Displayer;
+
+public class SuperMouseListener implements java.awt.event.MouseListener{
+
+	private Displayer parent;
+		
+	public SuperMouseListener(Displayer parent) {
+		this.parent = parent;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		//Nothing to do
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		this.parent.server.getDataMouse().setEnter(true);
+		this.parent.server.getDataMouse().setExit(false);
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		this.parent.server.getDataMouse().setEnter(false);
+		this.parent.server.getDataMouse().setExit(true);
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		this.parent.server.getDataMouse().setPress(true);
+		this.parent.server.getDataMouse().setRelease(false);
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		this.parent.server.getDataMouse().setPress(false);
+		this.parent.server.getDataMouse().setRelease(true);
+	}
+	
+	private void setWidthHeight(){
+		
+	}
+}

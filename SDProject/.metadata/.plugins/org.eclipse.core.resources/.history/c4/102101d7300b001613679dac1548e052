@@ -1,0 +1,41 @@
+package utils;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
+/**
+ * Class use to compress and decompress the image before and after the network
+ */
+public class ImageManipulator {
+	
+	/**
+	 * Create a image on the disk
+	 * @param image The image to create on the disk
+	 */
+	public static void createImageOnDisk(BufferedImage image){
+		Boolean noAccess = false;
+		do
+		try {
+		    File outputfile = new File("tmpE.jpeg");
+		    ImageIO.write(image, "jpeg", outputfile);
+		} catch (IOException e) {
+		    
+		}
+	}
+	
+	/**
+	 * Retrieve a image from the disk
+	 * @return The bufferedImage mirror of the image from the disk
+	 */
+	public static BufferedImage retrieveImageFromDisk(){
+		BufferedImage res = null;
+		try {
+			res = ImageIO.read(new File("tmpR.jpeg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+}

@@ -2,15 +2,13 @@ package ctrl;
 
 import lipermi.handler.CallHandler;
 import lipermi.net.Client;
-import tests.TestFrame;
 
 /**
  * Class which represent the client
  */
 public class SupervisedClient {
 
-	//The client
-	private Client client = null;
+	private Client client = null; 	//The client
 	private String name = "";		//His name
 	
 	/**
@@ -23,9 +21,9 @@ public class SupervisedClient {
 		
 		this.name = name;
 		
-		System.out.println("										CLIENT : Begin");
+		System.out.println("										CLIENT<"+this.name+"> : Begin");
 		
-		System.out.println("										CLIENT :	Binding ...");
+		System.out.println("										CLIENT<"+this.name+"> :	Binding ...");
 		
 		CallHandler callHandler = new CallHandler();
 
@@ -35,9 +33,9 @@ public class SupervisedClient {
 			e.printStackTrace();
 		}
 		
-		System.out.println("										CLIENT :	Binding ok");
+		System.out.println("										CLIENT<"+this.name+"> :	Binding ok");
 		
-		System.out.println("										CLIENT : 	Test connection ...");
+		System.out.println("										CLIENT<"+this.name+"> : 	Test connection ...");
 		
 		ConnectivityServices connecivityServicesRemote;
 		connecivityServicesRemote = (ConnectivityServices) this.client.getGlobal(ConnectivityServices.class);
@@ -45,24 +43,14 @@ public class SupervisedClient {
 		connecivityServicesRemote.connectedClient(name);
 		
 		
-		System.out.println("										CLIENT : 	Test connection ok");
 		
-		System.out.println("										CLIENT : Connected");
+		System.out.println("										CLIENT<"+this.name+"> : 	Test connection ok");
 		
-		ClientConnectionChecker routine = new ClientConnectionChecker(this.client, name);
-		routine.start();
 		
-		//TODO TESTER
-		@SuppressWarnings("unused")
-		TestFrame tester = new TestFrame(this.client);
 		
-	}
-	
-	/**
-	 * Method which is used to knwo the name of this client
-	 * @return
-	 */
-	public String getName(){
-		return this.name;
+		System.out.println("										CLIENT<"+this.name+"> : Connected");
+		
+		ClientSuperRoutine routinelvl0 = new ClientSuperRoutine(this.client, name, ip, port);
+		routinelvl0.start();
 	}
 }

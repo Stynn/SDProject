@@ -1,0 +1,63 @@
+package ctrl;
+
+import java.awt.AWTException;
+import java.awt.Dimension;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
+
+import lipermi.net.Client;
+
+public class ClientRoutineController extends Thread{
+	
+	private Client client;
+	
+	
+	public ClientRoutineController(Client client, String clientName){
+		this.client = client;
+	}
+	
+	public void run(){
+		Boolean isActive = true;
+		
+		RoutineServices routineServicesRemote;
+		routineServicesRemote = (RoutineServices) this.client.getGlobal(RoutineServices.class);
+		
+		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		int height = (int)dimension.getHeight();
+		int width  = (int)dimension.getWidth();
+		
+		Robot bot = null;
+		try {
+			bot = new Robot();
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}
+		
+		while(isActive){
+		
+			/*if (routineServicesRemote.amIActive(clientName)){
+				isActive = true;
+				
+				if (routineServicesRemote.isServerOkForReception()){*/
+					Object[] o =  routineServicesRemote.getDataMouse();
+					Boolean pressed = (Boolean) o[0];
+					int x = (int) o[1];
+					int y = (int) o[2];
+					int serverWidth = (int) o[3];
+					int serverHeight = (int) o[4];
+					
+					x = x * width / serverWidth;
+					y = y * height / serverHeight;
+					
+					bot.mouseMove(x, y);
+					
+					if (pressed){
+						bot.mousePress(InputEvent.BUTTON1_MASK);
+					}else{
+						bot.mouseRelease(InputEvent.BUTTON1_MASK);
+					}
+				}
+			//}
+		//}
+	}
+}

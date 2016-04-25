@@ -1,0 +1,16 @@
+package ctrl;
+
+import mdl.ImageToSend;
+
+/**
+ * 
+ * Interface of all routine services (like sending frame, parameters ...)
+ *
+ */
+public interface RoutineServices {
+	public void msgRoutine();
+	
+	public Boolean amIActive(String name);
+	
+	public void getParameters(ImageToSend img);
+}

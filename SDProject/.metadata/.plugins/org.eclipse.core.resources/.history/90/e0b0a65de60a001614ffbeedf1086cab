@@ -1,0 +1,59 @@
+package utils;
+
+import java.awt.event.MouseEvent;
+
+import vw.Displayer;
+
+public class SuperMouseListener implements java.awt.event.MouseListener{
+
+	private Displayer parent;
+		
+	public SuperMouseListener(Displayer parent) {
+		this.parent = parent;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		//Nothing to do
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		this.parent.server.getDataMouse().setEnter(true);
+		this.parent.server.getDataMouse().setExit(false);
+		this.setWidthHeight();
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		this.parent.server.getDataMouse().setEnter(false);
+		this.parent.server.getDataMouse().setExit(true);
+		this.setWidthHeight();
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		this.parent.server.getDataMouse().setPress(true);
+		this.parent.server.getDataMouse().setRelease(false);
+		if (e.getButton() == 1){
+			this.parent.server.getDataMouse().setLeftClick(true);
+			this.parent.server.getDataMouse().setRightClick(false);
+		}else if (e.getButton() == 3){
+			this.parent.server.getDataMouse().setLeftClick(false);
+			this.parent.server.getDataMouse().setRightClick(true);
+		}
+		this.setWidthHeight();
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		this.parent.server.getDataMouse().setPress(false);
+		this.parent.server.getDataMouse().setRelease(true);
+		this.setWidthHeight();
+	}
+	
+	private void setWidthHeight(){
+		this.parent.server.getDataMouse().setWidth(parent.getWidth());
+		this.parent.server.getDataMouse().setHeight(parent.getHeight());
+	}
+}

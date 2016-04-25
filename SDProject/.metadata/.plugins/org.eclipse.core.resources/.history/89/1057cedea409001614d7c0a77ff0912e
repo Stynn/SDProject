@@ -1,0 +1,30 @@
+package mdl;
+
+/**
+ * Data from the mouse
+ */
+public class MouseData {
+	
+	private Boolean press;
+	private Boolean release;
+	
+	private Boolean enter;
+	private Boolean exit;
+	
+	private int x;
+	private int y;
+	
+	public MouseData(){
+		this.press = false;
+		this.release = true;
+		
+		this.enter = false;
+		this.exit = true;
+		
+		this.x = 0;
+		this.y = 0;
+	}
+	
+	
+	
+}

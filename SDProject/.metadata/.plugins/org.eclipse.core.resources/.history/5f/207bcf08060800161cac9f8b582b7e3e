@@ -1,0 +1,28 @@
+package mdl;
+
+import java.io.Serializable;
+
+/**
+ * Data structure to send a image
+ */
+public class ImageToSend implements Serializable{
+	
+	/*public int height;
+	public int width;*/
+	
+	/**
+	 * Serial Version UID
+	 */
+	private static final long serialVersionUID = 8661377958492038625L;
+
+	/**
+	 * Constructor of the structure
+	 * @param fileImage
+	 * @param width
+	 * @param height
+	 */
+	/*public ImageToSend(int width, int height){
+		this.width = width;
+		this.height = height;
+	}*/
+}

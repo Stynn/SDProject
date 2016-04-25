@@ -1,0 +1,40 @@
+package ctrl;
+
+import mdl.ImageToSend;
+import vw.ViewerFrame;
+
+/**
+ * 
+ * Implementation of the interface RoutineServices
+ *
+ */
+public class RoutineServicesImpl implements RoutineServices {
+	
+	private SupervisorServer server; 	//The server
+	
+	public RoutineServicesImpl(SupervisorServer supervisorServer, ViewerFrame viewer) {
+		this.server = supervisorServer;
+	}
+
+	@Override
+	public void msgRoutine() {
+		System.out.println("Routine services");
+	}
+
+	/**
+	 * Function use to know if the client if it is active or not
+	 */
+	@Override
+	public Boolean amIActive(String name) {
+		Boolean res = false;
+		if (name.equalsIgnoreCase(this.server.getData().getActiveClient()))
+			res = true;
+		return res;
+	}
+
+	@Override
+	public void getParameters(ImageToSend img) {
+		//TODO
+	}
+
+}

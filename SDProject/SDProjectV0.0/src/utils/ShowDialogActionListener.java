@@ -14,7 +14,7 @@ public class ShowDialogActionListener implements ActionListener{
 	private ShowDialog parent;	//The ShowDialog
 	
 	/**
-	 * COnstrcutor of the listener
+	 * Constrcutor of the listener
 	 * @param parent The ShowDialog
 	 */
 	public ShowDialogActionListener(ShowDialog parent){
@@ -22,6 +22,9 @@ public class ShowDialogActionListener implements ActionListener{
 		this.parent = parent;
 	}
 
+	/**
+	 * I do not remember what is this function
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		this.parent.dispose();

@@ -1,0 +1,65 @@
+package ctrl;
+
+import mdl.DataFromMouse;
+
+/**
+ * 
+ * Implementation of the interface RoutineServices
+ *
+ */
+public class RoutineServicesImpl implements RoutineServices {
+	
+	private SupervisorServer server; 	//The server
+	
+	/**
+	 * Constructor of this class
+	 * @param supervisorServer The server whick implements theses services
+	 */
+	public RoutineServicesImpl(SupervisorServer supervisorServer) {
+		this.server = supervisorServer;
+	}
+
+	/**
+	 * The function use to know if this services work
+	 */
+	@Override
+	public void msgRoutine() {
+		System.out.println("Routine services");
+	}
+
+	/**
+	 * Function use to know if the client if it is active or not
+	 */
+	@Override
+	public Boolean amIActive(String name) {
+		Boolean res = false;
+		if (name.equalsIgnoreCase(this.server.getData().getActiveClient()))
+			res = true;
+		return res;
+	}
+
+	/**
+	 * @Return True if the server is of for reception
+	 */
+	@Override
+	public Boolean isServerOkForReception() {
+		Boolean res = this.server.getData().getPlayStateServer();
+		return res;
+	}
+	
+
+
+	@Override
+	public DataFromMouse getDataMouse() {
+		return this.server.getDataMouse()
+	}
+	
+/*
+	@Override
+	public int getX() {
+		return this.server.getData().getX();
+	}*/
+
+	
+	
+}

@@ -1,0 +1,109 @@
+package ctrl;
+
+import laf.ShowDialog;
+import lipermi.net.Client;
+
+/**
+ * Class which represent the routine of the client at the level 0
+ */
+public class ClientSuperRoutine extends Thread {
+	
+	private String clientName = "";	//Client name of the routine
+	private Client client = null;	//Client
+	private String ip;				//the ip of the server
+	int port;						//The port of the server
+	Boolean sending;
+	
+	/**
+	 * Constructor of the Thread
+	 * @param name Client name of the routine
+	 */
+	public ClientSuperRoutine(Client client, String name, String ip, int port){
+		this.client = client;
+		this.clientName = name;
+		this.ip = ip;
+		this.port = port;
+	}
+	
+	/**
+	 * Routine
+	 */
+	public void run() {
+		Boolean isConnected = true;
+		Boolean isActive = false;
+		Boolean serverIsOk = false;
+		
+		sending = false;
+		
+		
+		//ClientRoutineController clientController = new ClientRoutineController(this.client, this.clientName);
+		//clientController.start();
+		
+		//Check if we are always into the server list
+		ConnectivityServices connecivityServicesRemote;
+		connecivityServicesRemote = (ConnectivityServices) this.client.getGlobal(ConnectivityServices.class);
+		
+		RoutineServices routineServicesRemote;
+		routineServicesRemote = (RoutineServices) this.client.getGlobal(RoutineServices.class);
+		
+		while (isConnected){
+			
+			isConnected = connecivityServicesRemote.amIConnected(clientName);
+			if (isConnected){
+				isActive = routineServicesRemote.amIActive(clientName);
+				if (isActive){
+					//System.out.println("Je suis actif");
+					serverIsOk = routineServicesRemote.isServerOkForReception();
+					if (serverIsOk && !sending){
+						//System.out.println("Je commence à envoyer");
+						sending = true;
+						ClientRoutineImage clientroutine = new ClientRoutineImage(this.client, this.clientName, this.ip, this.port, this);
+						clientroutine.start();
+					}else if (!serverIsOk && sending){
+						//System.out.println("J'arrete d'envoyer");
+						sending = false;
+					}
+				}else{
+					//System.out.println("Je ne suis pas actif");
+				}
+			}else{
+				System.out.println("										CLIENT<"+this.clientName+"> : End");
+				@SuppressWarnings("unused")
+				ShowDialog s = new ShowDialog("Service stoped by the supervisor");
+			}
+			
+			//Every 2s checking the connection
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		/*while (isConnected){
+			
+			
+			
+			if (!connecivityServicesRemote.amIConnected(this.clientName)){
+				isConnected = false;
+				System.out.println("										CLIENT<"+this.clientName+"> : End");
+				@SuppressWarnings("unused")
+				ShowDialog s = new ShowDialog("Service stoped by the supervisor");
+			}
+			//Every 2s checking the connection
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}*/
+		
+	}
+
+	public Boolean getSending() {
+		return sending;
+	}
+	
+	
+}

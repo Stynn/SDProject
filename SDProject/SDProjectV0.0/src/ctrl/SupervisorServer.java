@@ -2,13 +2,15 @@ package ctrl;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.net.ServerSocket;
 
 import lipermi.exception.LipeRMIException;
 import lipermi.handler.CallHandler;
 import lipermi.net.Server;
-import tests.TestServices;
-import tests.TestServicesImpl;
+import mdl.DataFromKeyboard;
+import mdl.DataFromMouse;
+import mdl.DataFromServer;
+import test.ImageReceiver;
 import vw.ViewerFrame;
 
 /**
@@ -17,17 +19,21 @@ import vw.ViewerFrame;
 public class SupervisorServer {
 
 	private Server server;						//Server into the server
-	private int port;							//Port of the server
+	private int portServer;						//Port of the server
+	private int portSocket;						//Port of the socket
 	private ViewerFrame viewer;					//Viewer associate to the server
-	private ArrayList<String> clients;			//List of clients supervised
-	private CallHandler cH;						//The callhandler of the server
+	private DataFromServer data;				//Data structure know by the client
+	private DataFromMouse dataMouse;			//Data structure for the mouse
+	private DataFromKeyboard dataKey;			//Data structure for the keyboard
+	public CallHandler cH;						//The callhandler of the server
 	
 	/**
 	 * Constructor of the server
 	 */
 	public SupervisorServer(){
-		
-		clients = new ArrayList<String>();
+		data = new DataFromServer();
+		dataMouse = new DataFromMouse();
+		dataKey = new DataFromKeyboard();
 		
 		System.out.println("SERVER : Begin");
 		
@@ -38,6 +44,7 @@ public class SupervisorServer {
 		System.out.println("SERVER :		Listing services ...");
 		ConnectivityServicesImpl connectivityServices = new ConnectivityServicesImpl(this);
 		
+		
 		cH = new CallHandler();
 		try{
 			cH.registerGlobal(ConnectivityServices.class, connectivityServices);
@@ -46,34 +53,41 @@ public class SupervisorServer {
 		}
 		System.out.println("SERVER :		Services ok");
 		
-		System.out.println("SERVER :		Searching port ...");
-		this.port = 5000;
+		System.out.println("SERVER :		Searching port for server ...");
+		this.portServer = 5000;
 		Boolean portOk = false;
+		ServerSocket ssocket = null;
+		
 		
 		while (!portOk){
 			try{
-				server.bind(this.port, cH);
+				server.bind(this.portServer, cH);
+		
+				this.portSocket = portServer+1;
+		
+				ssocket = new ServerSocket(this.portSocket);
 				portOk = true;
-			}catch(IOException e){
-				this.port++;
+			} catch (IOException e){ 
+				this.portServer++;
 			}
 		}
 		
-		System.out.println("SERVER :		Port ok");
+		System.out.println("SERVER :		Ports server : "+this.portServer+" / "+this.portSocket);
 		System.out.println("SERVER :	Binding ok");
 		
+		ImageReceiver imgRcv = new ImageReceiver(ssocket, this.portSocket, this);
+		imgRcv.start();
 		
-		
-		System.out.println("SERVER : Listening on port : "+this.port);
+		System.out.println("SERVER : Listening on ports : "+this.portServer+" and "+this.portSocket);
 	}
 	
 	/**
 	 * Method use to add the service in liaison with the viewer
 	 */
 	public void addVieverServices(){
-		TestServicesImpl testServices = new TestServicesImpl(this.viewer);	//TODO for test
+		RoutineServicesImpl routineServices = new RoutineServicesImpl(this);
 		try{
-			cH.registerGlobal(TestServices.class, testServices);
+			cH.registerGlobal(RoutineServices.class, routineServices);
 		}catch(LipeRMIException e){
 			e.printStackTrace();
 		}
@@ -84,7 +98,7 @@ public class SupervisorServer {
 	 * @return The port of the server
 	 */
 	public int getPort(){
-		return this.port;
+		return this.portServer;
 	}
 	
 	/**
@@ -96,38 +110,44 @@ public class SupervisorServer {
 	}
 	
 	/**
+	 * Function which return the viewer of the application
+	 * @return ViewerFrame The viewer of the application
+	 */
+	public ViewerFrame getViewer() {
+		return viewer;
+	}
+
+	/**
 	 * Method use to add a client into the server and to refresh the frame
 	 * @param name
 	 */
 	public void addClient(String name){
-		this.clients.add(name);
+		//If the number of client is 0, it is the active client
+		if (this.data.getClients().size() == 0){
+			this.data.setActiveClient(name);
+		}
+		this.data.addClient(name);
 		this.viewer.addClient(name);
 	}
 	
 	/**
-	 * Method to suppress all client
+	 * @return Data of the server
 	 */
-	public void suppressAllClient(){
-		this.clients = new ArrayList<String>();
+	public DataFromServer getData(){
+		return this.data;
 	}
 	
 	/**
-	 * Method use to suppress one host
+	 * @return Data from the mouse
 	 */
-	public void suppressClient(String name){
-		int i = 0;
-		for(String currentName : this.clients){
-			if (currentName.equalsIgnoreCase(name))
-				break;
-			i++;
-		}
-		this.clients.remove(i);
+	public DataFromMouse getDataMouse(){
+		return this.dataMouse;
 	}
 	
 	/**
-	 * 
+	 * @return Data from the keyboard
 	 */
-	public ArrayList<String> getClients(){
-		return this.clients;
+	public DataFromKeyboard getDataKey(){
+		return this.dataKey;
 	}
 }
